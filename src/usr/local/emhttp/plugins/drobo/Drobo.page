@@ -1,0 +1,11 @@
+Menu="Main:5"
+Title="Drobo"
+Tag="hdd-o"
+---
+<?php
+/* Drobo status panel on the Main tab. The data comes from
+ * include/status.php, which runs the read-only drobo-status helper. */
+?>
+<link type="text/css" rel="stylesheet" href="<?autov('/plugins/drobo/drobo.css')?>">
+<div id="drobo-panel" class="drobo-panel"><p class="drobo-muted">_(Reading Drobo status)_…</p></div>
+<script src="<?autov('/plugins/drobo/drobo.js')?>"></script>

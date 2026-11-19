@@ -1,0 +1,56 @@
+<?xml version='1.0' standalone='yes'?>
+<!DOCTYPE PLUGIN [
+<!ENTITY name      "drobo">
+<!ENTITY author    "yeixio">
+<!ENTITY version   "0000.00.00">
+<!ENTITY md5       "00000000000000000000000000000000">
+<!ENTITY launch    "Settings/DroboSettings">
+<!ENTITY gitURL    "https://github.com/yeixio/unraid-drobo">
+<!ENTITY pluginURL "&gitURL;/releases/latest/download/drobo.plg">
+<!ENTITY pkgName   "&name;-&version;-x86_64-1.txz">
+<!ENTITY pkgURL    "&gitURL;/releases/download/v&version;/&pkgName;">
+<!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
+<!ENTITY cfgdir    "/boot/config/plugins/&name;">
+]>
+<PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;"
+        support="&gitURL;/issues" icon="hdd-o" min="6.12.0">
+
+<CHANGES>
+##&name;
+
+###&version;
+- See &gitURL;/releases for what changed.
+</CHANGES>
+
+<!-- The package: the read-only drobo-status helper plus the web pages. -->
+<FILE Name="&cfgdir;/&pkgName;" Run="upgradepkg --install-new">
+<URL>&pkgURL;</URL>
+<MD5>&md5;</MD5>
+</FILE>
+
+<FILE Run="/bin/bash">
+<INLINE>
+# Remove packages from older versions kept on the flash drive.
+for f in &cfgdir;/&name;-*.txz; do
+  [ "$f" = "&cfgdir;/&pkgName;" ] || rm -f "$f"
+done
+# First install: start from the defaults.
+[ -f &cfgdir;/drobo.cfg ] || cp &plugdir;/default.cfg &cfgdir;/drobo.cfg
+# Install the background check (cron) as set in Settings.
+&plugdir;/scripts/apply
+echo ""
+echo "Drobo plugin &version; installed. The status panel is on the Main tab."
+</INLINE>
+</FILE>
+
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+removepkg &pkgName;
+rm -f &cfgdir;/drobo.cron
+/usr/local/sbin/update_cron
+rm -rf &plugdir; /var/local/emhttp/drobo &cfgdir;
+echo "Drobo plugin removed."
+</INLINE>
+</FILE>
+
+</PLUGIN>
