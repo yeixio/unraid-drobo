@@ -1,0 +1,39 @@
+.drobo-panel{padding:6px 12px 12px}
+.drobo-unit{margin-bottom:16px}
+.drobo-head{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0 10px}
+.drobo-name{font-weight:bold;font-size:1.15em;margin-right:6px}
+.drobo-muted{opacity:.7}
+.drobo-badge{display:inline-block;padding:1px 8px;border-radius:10px;font-size:.9em;border:1px solid currentColor}
+.drobo-badge.drobo-ok{color:#2e9d48}
+.drobo-badge.drobo-warn{color:#c98a00}
+.drobo-badge.drobo-bad{color:#d9534f}
+.drobo-badge.drobo-info{color:#4a90c2}
+.drobo-findings{list-style:none;margin:0 0 12px;padding:0}
+.drobo-findings li{padding:6px 10px;margin-bottom:4px;border-left:4px solid;border-radius:3px;background:rgba(127,127,127,.08)}
+.drobo-findings li.drobo-bad{border-color:#d9534f}
+.drobo-findings li.drobo-warn{border-color:#e0a800}
+.drobo-findings li.drobo-info{border-color:#4a90c2}
+.drobo-bays{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin-bottom:12px}
+.drobo-bay{border:1px solid rgba(127,127,127,.35);border-radius:4px;padding:8px}
+.drobo-bay-top{font-weight:bold;display:flex;align-items:center;gap:6px}
+.drobo-bay-model{margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.drobo-light{width:12px;height:12px;border-radius:50%;display:inline-block;background:#888}
+.drobo-bay.drobo-ok .drobo-light{background:#2ecc40;box-shadow:0 0 5px #2ecc40}
+.drobo-bay.drobo-warn .drobo-light{background:#ffc107;box-shadow:0 0 5px #ffc107}
+.drobo-bay.drobo-bad .drobo-light{background:#ff3b30;box-shadow:0 0 5px #ff3b30;animation:drobo-blink 1s infinite}
+.drobo-bay.drobo-empty{opacity:.55}
+.drobo-bay.drobo-empty .drobo-light{background:transparent;border:1px solid #888}
+@keyframes drobo-blink{50%{opacity:.3}}
+table.drobo-cap{width:auto;min-width:420px;border-collapse:collapse;margin:4px 0 6px}
+table.drobo-cap th,table.drobo-cap td{text-align:left;padding:3px 18px 3px 0;border:0}
+table.drobo-cap th{font-weight:normal;opacity:.7}
+.drobo-bar{height:8px;max-width:600px;border-radius:4px;background:rgba(127,127,127,.25);overflow:hidden}
+.drobo-bar-fill{height:100%}
+.drobo-bar-fill.drobo-ok{background:#2ecc40}
+.drobo-bar-fill.drobo-warn{background:#ffc107}
+.drobo-bar-fill.drobo-bad{background:#ff3b30}
+.drobo-note{font-size:.9em;max-width:760px}
+.drobo-vols div{margin:2px 0}
+.drobo-text-warn{color:#c98a00}
+.drobo-foot{margin-top:8px;font-size:.9em}
+@media (max-width:600px){table.drobo-cap{min-width:0;width:100%}}

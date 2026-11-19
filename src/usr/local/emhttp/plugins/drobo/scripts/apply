@@ -1,0 +1,17 @@
+#!/bin/bash
+# Applies drobo.cfg: installs or removes the background check in cron.
+CFG=/boot/config/plugins/drobo/drobo.cfg
+CRON=/boot/config/plugins/drobo/drobo.cron
+INTERVAL=5
+[ -f "$CFG" ] && source "$CFG"
+case "$INTERVAL" in
+  5|10|15|30) SCHED="*/$INTERVAL * * * *" ;;
+  60) SCHED="7 * * * *" ;;
+  *) SCHED="" ;;
+esac
+if [ -n "$SCHED" ]; then
+  printf '# Drobo status check (Drobo plugin)\n%s /usr/local/bin/drobo-status check >/dev/null 2>&1\n' "$SCHED" > "$CRON"
+else
+  rm -f "$CRON"
+fi
+/usr/local/sbin/update_cron

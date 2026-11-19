@@ -1,0 +1,52 @@
+Menu="Utilities"
+Type="xmenu"
+Title="Drobo"
+Icon="hdd-o"
+Tag="hdd-o"
+---
+<?php
+$cfg = parse_plugin_cfg('drobo');
+function drobo_sel($cur, $val) { return $cur == $val ? ' selected' : ''; }
+?>
+<form markdown="1" name="drobo_settings" method="POST" action="/update.php" target="progressFrame">
+<input type="hidden" name="#file" value="drobo/drobo.cfg">
+<input type="hidden" name="#command" value="/usr/local/emhttp/plugins/drobo/scripts/apply">
+
+_(Check in the background every)_:
+: <select name="INTERVAL">
+  <option value="0"<?=drobo_sel($cfg['INTERVAL'],'0')?>>_(Off)_</option>
+  <option value="5"<?=drobo_sel($cfg['INTERVAL'],'5')?>>5 _(minutes)_</option>
+  <option value="15"<?=drobo_sel($cfg['INTERVAL'],'15')?>>15 _(minutes)_</option>
+  <option value="30"<?=drobo_sel($cfg['INTERVAL'],'30')?>>30 _(minutes)_</option>
+  <option value="60"<?=drobo_sel($cfg['INTERVAL'],'60')?>>_(Hour)_</option>
+  </select>
+
+<blockquote class="inline_help">
+The check takes about a second and nothing stays running between checks. It only reads from the Drobo. Turn it off and the Main panel still works; you just won't get notifications.
+</blockquote>
+
+_(Send Unraid notifications)_:
+: <select name="NOTIFY">
+  <option value="yes"<?=drobo_sel($cfg['NOTIFY'],'yes')?>>_(Yes)_</option>
+  <option value="no"<?=drobo_sel($cfg['NOTIFY'],'no')?>>_(No)_</option>
+  </select>
+
+<blockquote class="inline_help">
+You get one notification when a problem starts (a failed or failing drive, a rebuild, low space, USB 2 speed, a read-only or unclean volume, or the Drobo disconnecting) and one when it clears. Where they go (browser, email, Discord…) is set in Settings → Notification Settings.
+</blockquote>
+
+_(Warn when the Drobo is this full)_:
+: <input type="number" name="WARN_PCT" min="50" max="99" value="<?=htmlspecialchars($cfg['WARN_PCT'])?>" class="narrow"> %
+
+_(Alert when the Drobo is this full)_:
+: <input type="number" name="CRIT_PCT" min="50" max="100" value="<?=htmlspecialchars($cfg['CRIT_PCT'])?>" class="narrow"> %
+
+<blockquote class="inline_help">
+These use the Drobo's own count of protected space, not the free space Unraid shows for the volume. A Drobo turns its lights yellow at 85% and red at 95%, which are the defaults here.
+</blockquote>
+
+&nbsp;
+: <input type="submit" value="_(Apply)_"><input type="button" value="_(Done)_" onclick="done()">
+</form>
+
+The status panel is on the **Main** tab.
