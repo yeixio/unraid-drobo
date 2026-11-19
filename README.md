@@ -49,7 +49,7 @@ go test ./...
 build/package.sh 2026.11.19   # dist/drobo-2026.11.19-x86_64-1.txz and dist/drobo.plg
 ```
 
-Pushing a tag such as `v2026.11.19` builds and publishes a GitHub release with both files; Unraid picks up the update from there.
+To publish, run the **Release** workflow from the Actions tab with a version such as `2026.11.19` (or push a tag `v2026.11.19`). It builds and publishes a GitHub release with both files, and Unraid picks up the update from there.
 
 ## Credits
 
